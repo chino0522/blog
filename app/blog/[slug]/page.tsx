@@ -1,19 +1,22 @@
-import { allPosts } from '@/.contentlayer/generated';
+import { allPosts } from 'contentlayer/generated';
+import { getMDXComponent } from 'next-contentlayer2/hooks';
 
 interface PageProps {
-    params: {
-        slug: string;
-    }
+  params: Promise<{ slug: string }>; // Change to Promise
 }
 
-export default function Page({ params }: PageProps) {
-    const post = allPosts.find(post => post._raw.flattenedPath == params.slug)
+export default async function Page({ params }: PageProps) {
+  const { slug } = await params;
+  const post = allPosts.find((post) => post._raw.flattenedPath === slug);
 
-    if (!post?.body.html) return <div>does not exist</div>
+  if (!post) return <div>Post does not exist</div>;
 
-    return (
-        <article>
-            <div dangerouslySetInnerHTML={{ __html: post.body.html }} />
-        </article>
-    );
+  const MDXContent = getMDXComponent(post.body.code);
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <MDXContent />
+    </article>
+  );
 }
