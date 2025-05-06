@@ -2,6 +2,7 @@ import { allPosts } from '@/.contentlayer/generated';
 import { compareDesc } from 'date-fns';
 import Link from 'next/link';
 import PostCard from '@/components/blog/PostCard';
+import Guestbook from '@/components/Guestbook';
 
 export default function Page() {
   const posts = allPosts
@@ -12,7 +13,7 @@ export default function Page() {
     <main className="flex flex-col gap-2 py-20">
       {/* Introduction Section */}
       <section className="mb-12 flex flex-col gap-2">
-        <h1 className="text-2xl font-bold mb-4 text-primary">👋 Welcome to My Blog!</h1>
+        <h1 className="text-2xl font-bold mb-4 text-primary">Welcome to My Blog!</h1>
         <div className='flex flex-col gap-1'>
           <p className="text-foreground">
             <span className='text-primary'>{">"}</span> Here, I share my learning journey, coding insights, and helpful resources for fellow developers.
@@ -39,18 +40,8 @@ export default function Page() {
         </Link>
       </section>
 
-      {/* Guestbook Section */}
-      <section className="mb-12 flex flex-col gap-2">
-        <h2 className="text-2xl font-semibold mb-4 text-primary">📬 Guestbook</h2>
-        <p className="text-foreground mb-4">
-          Leave a comment or say hi! Powered by giscus.
-        </p>
-        <div className="bg-secondary-bg p-4 rounded-lg">
-          <p className="text-primary-gray">
-            [Giscus comment section placeholder]
-          </p>
-        </div>
-      </section>
+      <Guestbook />
+
     </main>
   );
 }
